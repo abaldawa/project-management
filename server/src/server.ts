@@ -37,7 +37,9 @@ const start = async (): Promise<void> => {
     await server.start();
 
     // 2. Add express middlewares
-    // Serve client
+    /**
+     * Serve production build of client.
+     */
     app.use(
       express.static(path.join(__dirname, '..', '..', 'client', 'build'))
     );
