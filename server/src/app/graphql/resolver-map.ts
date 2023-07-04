@@ -34,7 +34,7 @@ const resolverMap = {
       if (discountOrFee?.type === 'DISCOUNT') {
         return 'Discount';
       }
-      // Only Book has a title field
+
       if (discountOrFee?.type === 'FEES') {
         return 'Fee';
       }
