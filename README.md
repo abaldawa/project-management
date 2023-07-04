@@ -11,6 +11,9 @@ The project/phase/cost items details on the backend graphql server is mocked (mi
 2. **Front end:** React.js, Typescript, apollo-client, material-ui
 3. Docker
 
+### Pre-requisites
+1. Docker
+
 ### How to run:
 1. git clone https://github.com/abaldawa/project-management.git
 2. cd project-management
