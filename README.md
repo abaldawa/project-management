@@ -4,7 +4,7 @@
 ### Description
 A fullstack React.js/Node.js/Typescript/GraphQL based project-management app showing full project invoices. The react frontend fetches project invoice details from backend GraphQL server.
 
-The project/phase/cost items details on the backend graphql server is mocked (mimicking real database and is in-memory for exercise purpose) but all the associated calculation necessary to generate invoice details (ex. totalTax, total project cost, phase subtotal cost, phase tax etc.) are real and are happening on the mocked database data. The mocked database data is all relational mimicking real DB relations.
+The project/phase/cost items details on the backend graphql server is mocked (mimicking real database and is in-memory for exercise purpose) but all the associated calculation necessary to generate invoice details (ex. totalTax, total project cost, phase subtotal cost, phase tax etc.) are real and are happening on the mocked database data. The mocked database data is all relational mimicking real DB relations as much as possible.
 
 ### Tech Stack
 1. **Backend:** Node.js (18.x), Typescript, express.js, apollo-server, graphql
@@ -18,7 +18,7 @@ The project/phase/cost items details on the backend graphql server is mocked (mi
 4. go to http://localhost:3000 to see the UI
 
 ### Server GraphQL API and GraphQL API query interface:
-GraphQL api (and UI) can be accessed on `/project-management-service/graphql`. Use project id `7225222f-faa2-48c9-bdba-e17fcf21a05b` as `projectId` to query project invoice from graphql backend server. 
+GraphQL api (and GraphQL API query UI) can be accessed on `/project-management-service/graphql`. Use project id `7225222f-faa2-48c9-bdba-e17fcf21a05b` as `projectId` to query project invoice from graphql backend server. 
 
 ### NOTES (If I had more time I would have done below)
 1. To share reusable typescript types and javascript code on both frontend and backend a monorepo like [NX](https://nx.dev/)
