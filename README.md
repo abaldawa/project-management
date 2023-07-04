@@ -29,6 +29,7 @@ GraphQL api (and GraphQL API query UI) can be accessed on `/project-management-s
 3. Graphql [n+1 problem](https://shopify.engineering/solving-the-n-1-problem-for-graphql-through-batching) can be solved using [data-loader](https://github.com/graphql/dataloader). Basically a batching solution.
 4. Responsive UI on the frontend which looks well on all screen sizes.
 5. Unit/integration/E2E tests using jest, React testing library, Mock Service worker, cypress etc.
+6. The frontend is created using CRA. As CRA is sunsetted officially by react team, the official recommended ways to create react project, according to react official docs, are Next.js and Remix. Create Vite App is also a very popular solution to create a client only SPA with react.js but is not highlighted enough on react.js new official docs.
    
 ### User interface
 Below gif shows how the UI looks like
