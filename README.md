@@ -34,4 +34,5 @@ GraphQL api (and GraphQL API query UI) can be accessed on `/project-management-s
 ### User interface
 Below gif shows how the UI looks like
 
-![Jul-04-2023 4-25-30 PM](https://github.com/abaldawa/project-management/assets/5449692/cef6129b-358f-406b-8210-4a7912815461)
+![Jul-04-2023 5-17-58 PM](https://github.com/abaldawa/project-management/assets/5449692/8d1a23fe-2a97-40ef-92d8-e2fa0b3d27d0)
+
