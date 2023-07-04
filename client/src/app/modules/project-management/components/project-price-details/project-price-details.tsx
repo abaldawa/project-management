@@ -35,11 +35,6 @@ const ProjectPriceDetails: React.FC<ProjectPriceDetailsProps> = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell>Subtotal</TableCell>
-            <TableCell align="right">{subtotalPrice}</TableCell>
-          </TableRow>
-
           {discountOrFee && (
             <TableRow>
               <TableCell>{discountOrFee.type}</TableCell>
@@ -52,7 +47,10 @@ const ProjectPriceDetails: React.FC<ProjectPriceDetailsProps> = (props) => {
               </TableCell>
             </TableRow>
           )}
-
+          <TableRow>
+            <TableCell>Subtotal</TableCell>
+            <TableCell align="right">{subtotalPrice}</TableCell>
+          </TableRow>
           <TableRow>
             <TableCell>Total Tax</TableCell>
             <TableCell align="right">{totalTax}</TableCell>
