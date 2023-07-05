@@ -14,6 +14,18 @@ type DiscountOrFee =
       fees: number;
     };
 
+type BilledBy =
+  | {
+      type: "HOUR";
+      totalHours: number;
+      costPerHour: number;
+    }
+  | {
+      type: "UNITS";
+      totalUnits: number;
+      costPerUnit: number;
+    };
+
 export interface ProjectInvoice {
   name: string;
   subtotalPrice: number;
@@ -35,17 +47,7 @@ export interface ProjectInvoice {
       description: string;
       taxRateInPercent: number;
       totalCost: number;
-      billedBy:
-        | {
-            type: "HOUR";
-            totalHours: number;
-            costPerHour: number;
-          }
-        | {
-            type: "UNITS";
-            totalUnits: number;
-            costPerUnit: number;
-          };
+      billedBy: BilledBy;
     }>;
   }>;
 }
