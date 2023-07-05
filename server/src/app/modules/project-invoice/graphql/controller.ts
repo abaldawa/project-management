@@ -2,11 +2,11 @@
  * @author Abhijit Baldawa
  */
 
-import * as projectModel from '../../database/models/projects';
-import * as currencyModel from '../../database/models/currencies';
-import * as projectPhaseModel from '../../database/models/project-phases';
-import * as costItemModel from '../../database/models/cost-items';
-import * as projectInvoiceService from '../../modules/project-invoice/service';
+import * as projectModel from '../../../database/models/projects';
+import * as currencyModel from '../../../database/models/currencies';
+import * as projectPhaseModel from '../../../database/models/project-phases';
+import * as costItemModel from '../../../database/models/cost-items';
+import * as projectInvoiceService from '../../../modules/project-invoice/service';
 
 const getProjectById = (_: undefined, args: { projectId: string }) =>
   projectModel.findProjectById(args.projectId);

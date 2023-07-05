@@ -4,7 +4,7 @@
 
 import * as projectModel from '../database/models/projects';
 import * as costItemModel from '../database/models/cost-items';
-import { projectInvoiceResolvers } from './resolvers';
+import * as projectInvoiceResolvers from '../modules/project-invoice/graphql/controller';
 
 const resolverMap = {
   Query: {
