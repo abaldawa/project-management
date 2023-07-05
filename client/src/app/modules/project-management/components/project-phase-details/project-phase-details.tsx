@@ -7,14 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { ProjectPhasePriceDetails } from "../project-phase-price-details/project-phase-price-details";
-import { CostItem, ProjectPhase } from "../../../../models";
+import { ProjectInvoice } from "../../gql-queries-hooks";
 import * as S from "./project-phase-details.styles";
 
-export interface ProjectPhaseDetailsProps extends ProjectPhase {
-  subtotalPrice: number;
-  subtotalTax: number;
-  costItems: (CostItem & { totalCost: number })[];
-}
+export type ProjectPhaseDetailsProps = ProjectInvoice["phases"][number];
 
 export const ProjectPhaseDetails: React.FC<ProjectPhaseDetailsProps> = (
   props

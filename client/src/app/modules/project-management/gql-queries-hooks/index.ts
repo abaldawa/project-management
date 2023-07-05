@@ -65,15 +65,29 @@ const GET_PROJECT_INVOICE_GQL_QUERY = gql`
   }
 `;
 
-interface ProjectInvoiceGqlResponse {
-  projectInvoice: {
+export interface ProjectInvoice {
+  name: string;
+  subtotalPrice: number;
+  totalPrice: number;
+  totalTax: number;
+  currency: {
+    isoCode: string;
+  };
+  discountOrFee?:
+    | {
+        type: "DISCOUNT";
+        discount: number;
+      }
+    | {
+        type: "FEES";
+        fees: number;
+      };
+
+  phases: Array<{
+    id: string;
     name: string;
     subtotalPrice: number;
-    totalPrice: number;
-    totalTax: number;
-    currency: {
-      isoCode: string;
-    };
+    subtotalTax: number;
     discountOrFee?:
       | {
           type: "DISCOUNT";
@@ -83,40 +97,28 @@ interface ProjectInvoiceGqlResponse {
           type: "FEES";
           fees: number;
         };
-
-    phases: Array<{
+    costItems: Array<{
       id: string;
-      name: string;
-      subtotalPrice: number;
-      subtotalTax: number;
-      discountOrFee?:
+      description: string;
+      taxRateInPercent: number;
+      totalCost: number;
+      billedBy:
         | {
-            type: "DISCOUNT";
-            discount: number;
+            type: "HOUR";
+            totalHours: number;
+            costPerHour: number;
           }
         | {
-            type: "FEES";
-            fees: number;
+            type: "UNITS";
+            totalUnits: number;
+            costPerUnit: number;
           };
-      costItems: Array<{
-        id: string;
-        description: string;
-        taxRateInPercent: number;
-        totalCost: number;
-        billedBy:
-          | {
-              type: "HOUR";
-              totalHours: number;
-              costPerHour: number;
-            }
-          | {
-              type: "UNITS";
-              totalUnits: number;
-              costPerUnit: number;
-            };
-      }>;
     }>;
-  };
+  }>;
+}
+
+interface ProjectInvoiceGqlResponse {
+  projectInvoice: ProjectInvoice;
 }
 
 const useGetProjectInvoice = (projectId: string) =>

@@ -10,13 +10,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Project } from "../../../../models";
+import { ProjectInvoice } from "../../gql-queries-hooks";
 
-interface ProjectPriceDetailsProps extends Pick<Project, "discountOrFee"> {
-  subtotalPrice: number;
-  totalPrice: number;
-  totalTax: number;
-}
+type ProjectPriceDetailsProps = Pick<
+  ProjectInvoice,
+  "subtotalPrice" | "totalPrice" | "totalTax" | "discountOrFee"
+>;
 
 const ProjectPriceDetails: React.FC<ProjectPriceDetailsProps> = (props) => {
   const { subtotalPrice, totalPrice, totalTax, discountOrFee } = props;

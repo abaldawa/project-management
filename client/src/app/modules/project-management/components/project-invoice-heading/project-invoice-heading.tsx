@@ -5,12 +5,12 @@
 import React from "react";
 import * as S from "./project-invoice-heading.styles";
 
-interface KeyValueLabel {
+interface ProjectInvoiceHeadingProps {
   projectName: string;
   projectCurrency: string;
 }
 
-const ProjectInvoiceHeading: React.FC<KeyValueLabel> = (props) => {
+const ProjectInvoiceHeading: React.FC<ProjectInvoiceHeadingProps> = (props) => {
   const { projectName, projectCurrency } = props;
 
   return (

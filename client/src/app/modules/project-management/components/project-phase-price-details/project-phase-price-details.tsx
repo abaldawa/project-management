@@ -16,7 +16,7 @@ import type { ProjectPhaseDetailsProps } from "../project-phase-details/project-
 import * as S from "./project-phase-price-details.styles";
 
 interface ProjectPhasePriceDetailsProps
-  extends Omit<ProjectPhaseDetailsProps, "name"> {}
+  extends Omit<ProjectPhaseDetailsProps, "name" | "id"> {}
 
 const ProjectPhasePriceDetails: React.FC<ProjectPhasePriceDetailsProps> = (
   props
