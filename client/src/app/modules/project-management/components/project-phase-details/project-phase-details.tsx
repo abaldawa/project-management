@@ -10,11 +10,10 @@ import { ProjectPhasePriceDetails } from "../project-phase-price-details/project
 import { CostItem, ProjectPhase } from "../../../../models";
 import * as S from "./project-phase-details.styles";
 
-export interface ProjectPhaseDetailsProps
-  extends Omit<ProjectPhase, "projectId" | "id"> {
+export interface ProjectPhaseDetailsProps extends ProjectPhase {
   subtotalPrice: number;
   subtotalTax: number;
-  costItems: (Omit<CostItem, "projectPhaseId"> & { totalCost: number })[];
+  costItems: (CostItem & { totalCost: number })[];
 }
 
 export const ProjectPhaseDetails: React.FC<ProjectPhaseDetailsProps> = (
