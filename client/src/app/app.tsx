@@ -2,10 +2,6 @@
  * @author Abhijit Baldawa
  */
 
-/**
- * @author Abhijit Baldawa
- */
-
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ProjectInvoice } from "./modules/project-management/containers/project-invoice/project-invoice";
