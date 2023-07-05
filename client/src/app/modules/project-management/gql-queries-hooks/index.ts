@@ -12,9 +12,7 @@ const GET_PROJECT_INVOICE_GQL_QUERY = gql`
       totalPrice
       totalTax
       currency {
-        name
         isoCode
-        symbol
       }
       discountOrFee {
         ... on Discount {
@@ -74,9 +72,7 @@ interface ProjectInvoiceGqlResponse {
     totalPrice: number;
     totalTax: number;
     currency: {
-      name: string;
       isoCode: string;
-      symbol: string;
     };
     discountOrFee?:
       | {
