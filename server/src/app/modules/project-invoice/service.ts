@@ -6,20 +6,23 @@ import * as projectPhaseModel from '../../database/models/project-phases';
 import * as costItemModel from '../../database/models/cost-items';
 import * as projectModel from '../../database/models/projects';
 
-const getTotalCostOfCostItem = (costItem: costItemModel.CostItem) => {
-  if (costItem.billedBy.type === 'HOUR') {
-    return costItem.billedBy.totalHours * costItem.billedBy.costPerHour;
+const getTotalCostOfCostItem = (
+  billedBy: costItemModel.CostItem['billedBy']
+) => {
+  if (billedBy.type === 'HOUR') {
+    return billedBy.totalHours * billedBy.costPerHour;
   }
-  return costItem.billedBy.totalUnits * costItem.billedBy.costPerUnit;
+  return billedBy.totalUnits * billedBy.costPerUnit;
 };
 
 const getProjectPhaseSubtotalPrice = (
-  projectPhase: projectPhaseModel.ProjectPhase
+  projectPhase: Pick<projectPhaseModel.ProjectPhase, 'id' | 'discountOrFee'>
 ) => {
   const totalItemsCost = costItemModel
     .getCostItemsForPhase(projectPhase.id)
     .reduce(
-      (totalCost, costItem) => totalCost + getTotalCostOfCostItem(costItem),
+      (totalCost, costItem) =>
+        totalCost + getTotalCostOfCostItem(costItem.billedBy),
       0
     );
 
@@ -35,18 +38,21 @@ const getProjectPhaseSubtotalPrice = (
 };
 
 const getProjectPhaseSubtotalTax = (
-  projectPhase: projectPhaseModel.ProjectPhase
+  projectPhaseId: projectPhaseModel.ProjectPhase['id']
 ) =>
   costItemModel
-    .getCostItemsForPhase(projectPhase.id)
+    .getCostItemsForPhase(projectPhaseId)
     .reduce((totalTax, costItem) => {
       return (
         totalTax +
-        getTotalCostOfCostItem(costItem) * (costItem.taxRateInPercent / 100)
+        getTotalCostOfCostItem(costItem.billedBy) *
+          (costItem.taxRateInPercent / 100)
       );
     }, 0);
 
-const getProjectSubtotalPrice = (project: projectModel.Project) => {
+const getProjectSubtotalPrice = (
+  project: Pick<projectModel.Project, 'id' | 'discountOrFee'>
+) => {
   const projectPhases = projectPhaseModel.getProjectPhasesByProjectId(
     project.id
   );
@@ -69,22 +75,22 @@ const getProjectSubtotalPrice = (project: projectModel.Project) => {
   return totalPhasesCost + discountOrFee;
 };
 
-const getProjectTax = (project: projectModel.Project) => {
-  const projectPhases = projectPhaseModel.getProjectPhasesByProjectId(
-    project.id
-  );
+const getProjectTax = (projectId: projectModel.Project['id']) => {
+  const projectPhases =
+    projectPhaseModel.getProjectPhasesByProjectId(projectId);
 
   const totalPhasesTax = projectPhases.reduce(
     (totalTax, projectPhase) =>
-      totalTax + getProjectPhaseSubtotalTax(projectPhase),
+      totalTax + getProjectPhaseSubtotalTax(projectPhase.id),
     0
   );
 
   return totalPhasesTax;
 };
 
-const getProjectTotalPrice = (project: projectModel.Project) =>
-  getProjectSubtotalPrice(project) + getProjectTax(project);
+const getProjectTotalPrice = (
+  project: Pick<projectModel.Project, 'id' | 'discountOrFee'>
+) => getProjectSubtotalPrice(project) + getProjectTax(project.id);
 
 export {
   getProjectPhaseSubtotalPrice,

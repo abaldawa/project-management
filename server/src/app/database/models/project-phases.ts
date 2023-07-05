@@ -44,12 +44,9 @@ const mockProjectPhases: ProjectPhase[] = [
   },
 ];
 
-const findProjectPhaseById = (projectPhaseId: ProjectPhase['id']) =>
-  mockProjectPhases.find((projectPhase) => projectPhase.id === projectPhaseId);
-
 const getProjectPhasesByProjectId = (projectId: ProjectPhase['projectId']) =>
   mockProjectPhases.filter(
     (projectPhase) => projectPhase.projectId === projectId
   );
 
-export { ProjectPhase, findProjectPhaseById, getProjectPhasesByProjectId };
+export { ProjectPhase, getProjectPhasesByProjectId };

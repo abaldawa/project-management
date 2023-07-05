@@ -15,31 +15,41 @@ const getProjectCurrency = (project: projectModel.Project) =>
   currencyModel.findCurrencyById(project.currencyId);
 
 const getProjectSubtotalPrice = (project: projectModel.Project) =>
-  projectInvoiceService.getProjectSubtotalPrice(project);
+  projectInvoiceService.getProjectSubtotalPrice({
+    id: project.id,
+    discountOrFee: project.discountOrFee,
+  });
 
 const getProjectTotalPrice = (project: projectModel.Project) =>
-  projectInvoiceService.getProjectTotalPrice(project);
+  projectInvoiceService.getProjectTotalPrice({
+    id: project.id,
+    discountOrFee: project.discountOrFee,
+  });
 
 const getProjectTax = (project: projectModel.Project) =>
-  projectInvoiceService.getProjectTax(project);
+  projectInvoiceService.getProjectTax(project.id);
 
 const getProjectPhases = (project: projectModel.Project) =>
   projectPhaseModel.getProjectPhasesByProjectId(project.id);
 
 const getProjectPhaseSubtotalPrice = (
   projectPhase: projectPhaseModel.ProjectPhase
-) => projectInvoiceService.getProjectPhaseSubtotalPrice(projectPhase);
+) =>
+  projectInvoiceService.getProjectPhaseSubtotalPrice({
+    id: projectPhase.id,
+    discountOrFee: projectPhase.discountOrFee,
+  });
 
 const getProjectPhaseSubtotalTax = (
   projectPhase: projectPhaseModel.ProjectPhase
-) => projectInvoiceService.getProjectPhaseSubtotalTax(projectPhase);
+) => projectInvoiceService.getProjectPhaseSubtotalTax(projectPhase.id);
 
 const getProjectPhaseCostItems = (
   projectPhase: projectPhaseModel.ProjectPhase
 ) => costItemModel.getCostItemsForPhase(projectPhase.id);
 
 const getTotalCostOfCostItem = (costItem: costItemModel.CostItem) =>
-  projectInvoiceService.getTotalCostOfCostItem(costItem);
+  projectInvoiceService.getTotalCostOfCostItem(costItem.billedBy);
 
 export {
   getProjectById,

@@ -93,12 +93,9 @@ const mockCostItems: CostItem[] = [
   },
 ];
 
-const findCostItemById = (costItemId: CostItem['id']) =>
-  mockCostItems.find((costItem) => costItem.id === costItemId);
-
 const getCostItemsForPhase = (projectPhaseId: CostItem['projectPhaseId']) =>
   mockCostItems.filter(
     (costItem) => costItem.projectPhaseId === projectPhaseId
   );
 
-export { CostItem, findCostItemById, getCostItemsForPhase };
+export { CostItem, getCostItemsForPhase };
