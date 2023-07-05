@@ -4,6 +4,56 @@
 
 import { useQuery, gql } from "@apollo/client";
 
+type DiscountOrFee =
+  | {
+      type: "DISCOUNT";
+      discount: number;
+    }
+  | {
+      type: "FEES";
+      fees: number;
+    };
+
+export interface ProjectInvoice {
+  name: string;
+  subtotalPrice: number;
+  totalPrice: number;
+  totalTax: number;
+  currency: {
+    isoCode: string;
+  };
+  discountOrFee?: DiscountOrFee;
+
+  phases: Array<{
+    id: string;
+    name: string;
+    subtotalPrice: number;
+    subtotalTax: number;
+    discountOrFee?: DiscountOrFee;
+    costItems: Array<{
+      id: string;
+      description: string;
+      taxRateInPercent: number;
+      totalCost: number;
+      billedBy:
+        | {
+            type: "HOUR";
+            totalHours: number;
+            costPerHour: number;
+          }
+        | {
+            type: "UNITS";
+            totalUnits: number;
+            costPerUnit: number;
+          };
+    }>;
+  }>;
+}
+
+interface ProjectInvoiceGqlResponse {
+  projectInvoice: ProjectInvoice;
+}
+
 const GET_PROJECT_INVOICE_GQL_QUERY = gql`
   query GetProjectInvoice($projectId: String!) {
     projectInvoice(projectId: $projectId) {
@@ -64,62 +114,6 @@ const GET_PROJECT_INVOICE_GQL_QUERY = gql`
     }
   }
 `;
-
-export interface ProjectInvoice {
-  name: string;
-  subtotalPrice: number;
-  totalPrice: number;
-  totalTax: number;
-  currency: {
-    isoCode: string;
-  };
-  discountOrFee?:
-    | {
-        type: "DISCOUNT";
-        discount: number;
-      }
-    | {
-        type: "FEES";
-        fees: number;
-      };
-
-  phases: Array<{
-    id: string;
-    name: string;
-    subtotalPrice: number;
-    subtotalTax: number;
-    discountOrFee?:
-      | {
-          type: "DISCOUNT";
-          discount: number;
-        }
-      | {
-          type: "FEES";
-          fees: number;
-        };
-    costItems: Array<{
-      id: string;
-      description: string;
-      taxRateInPercent: number;
-      totalCost: number;
-      billedBy:
-        | {
-            type: "HOUR";
-            totalHours: number;
-            costPerHour: number;
-          }
-        | {
-            type: "UNITS";
-            totalUnits: number;
-            costPerUnit: number;
-          };
-    }>;
-  }>;
-}
-
-interface ProjectInvoiceGqlResponse {
-  projectInvoice: ProjectInvoice;
-}
 
 const useGetProjectInvoice = (projectId: string) =>
   useQuery<ProjectInvoiceGqlResponse>(GET_PROJECT_INVOICE_GQL_QUERY, {
