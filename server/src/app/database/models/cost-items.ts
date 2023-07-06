@@ -5,9 +5,25 @@
 import { ProjectPhase } from './project-phases';
 
 interface CostItem {
+  /**
+   * Database id of the cost item
+   */
   id: string;
+
+  /**
+   * Description of the cost item
+   */
   description: string;
+
+  /**
+   * Tax rate applicable for the cost item
+   */
   taxRateInPercent: 0 | 8 | 12 | 20; // one of three tax rates, incl. 0%, is added
+
+  /**
+   * Billing information which can be used to calculate
+   * the total cost of the cost item
+   */
   billedBy:
     | {
         type: 'HOUR';
@@ -19,9 +35,16 @@ interface CostItem {
         totalUnits: number;
         costPerUnit: number;
       };
+
+  /**
+   * Phase to which this cost item belongs
+   */
   projectPhaseId: ProjectPhase['id'];
 }
 
+/**
+ * Dummy mock relational table data for this model
+ */
 const mockCostItems: CostItem[] = [
   {
     id: '2fe034f6-bda0-4715-bf7e-eba99de565ec',

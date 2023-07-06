@@ -3,12 +3,36 @@
  */
 
 interface Currency {
+  /**
+   * Database id of the currency
+   */
   id: string;
+
+  /**
+   * Full name of the currency
+   *
+   * Ex. `Euro`
+   */
   name: string;
+
+  /**
+   * Three digit ISO currency code
+   *
+   * Ex. `EUR`
+   */
   isoCode: string;
+
+  /**
+   * Symbol of the currency record
+   *
+   * Ex. `€`
+   */
   symbol: string;
 }
 
+/**
+ * Dummy mock table data for this model
+ */
 const mockCurrencies: Currency[] = [
   {
     id: 'f1e9ae8d-9946-45ad-9ead-4164940c2392',

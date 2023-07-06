@@ -1,7 +1,7 @@
 /**
  * @author Abhijit Baldawa
  *
- * This module contains the business logic function to perform
+ * This module contains the business logic functions to perform
  * invoice calculations
  */
 

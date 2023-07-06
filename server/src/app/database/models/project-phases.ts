@@ -5,15 +5,32 @@
 import type { Project } from './projects';
 
 interface ProjectPhase {
+  /**
+   * Database id of the project phase
+   */
   id: string;
+
+  /**
+   * Name of the project phase
+   */
   name: string;
+
+  /**
+   * Any discount or extra fee for a particular phase
+   */
   discountOrFee?:
     | { type: 'DISCOUNT'; discount: number }
     | { type: 'FEES'; fees: number };
 
+  /**
+   * Project to which this project phase belongs
+   */
   projectId: Project['id'];
 }
 
+/**
+ * Dummy mock relational table data for this model
+ */
 const mockProjectPhases: ProjectPhase[] = [
   {
     id: 'c2a1ca0e-9eaa-4c57-a977-9f3676980ea0',

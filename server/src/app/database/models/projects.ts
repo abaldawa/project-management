@@ -5,14 +5,32 @@
 import type { Currency } from './currencies';
 
 interface Project {
+  /**
+   * Database id of the project
+   */
   id: string;
+
+  /**
+   * Name of the project
+   */
   name: string;
+
+  /**
+   * Any discount of extra fee for the entire project
+   */
   discountOrFee?:
     | { type: 'DISCOUNT'; discount: number }
     | { type: 'FEES'; fees: number };
+
+  /**
+   * Points to the currency this project uses
+   */
   currencyId: Currency['id'];
 }
 
+/**
+ * Dummy mock relational table data for this model
+ */
 const mockProjects: Project[] = [
   {
     id: '7225222f-faa2-48c9-bdba-e17fcf21a05b',
