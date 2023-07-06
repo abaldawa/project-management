@@ -1,7 +1,7 @@
 /**
  * @author: abhijit.baldawa
  *
- * Standard logger module using winston
+ * Standard logger module using winston to create server specific logger instance
  */
 
 import { createLogger, format, transports } from 'winston';
@@ -21,6 +21,19 @@ interface LoggerOptions {
   transports?: Transports;
 }
 
+/**
+ * @public
+ *
+ * A factory function which creates a logger instance for the
+ * server using provided configurations.
+ *
+ * The logger instance
+ * can then be used to log `info`, `warn`, `error`, `debug` etc
+ * logging information based on the provided `logLevel`
+ *
+ * @param options
+ * @returns
+ */
 const createServerLogger = (options: LoggerOptions) => {
   const {
     logLevel,
@@ -42,6 +55,10 @@ const createServerLogger = (options: LoggerOptions) => {
   });
 
   if (!productionMode) {
+    /**
+     * If its not production mode then use console as a transport
+     * mechanism i.e. logs to the console
+     */
     logger.add(
       new transports.Console({
         level: logLevel,
