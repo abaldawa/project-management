@@ -1,5 +1,8 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This module contains the business logic function to perform
+ * invoice calculations
  */
 
 import * as projectPhaseModel from '../../database/models/project-phases';

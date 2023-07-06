@@ -1,12 +1,14 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This module contains graphql-resolvers for `project-invoice` module
  */
 
 import * as projectModel from '../../../database/models/projects';
 import * as currencyModel from '../../../database/models/currencies';
 import * as projectPhaseModel from '../../../database/models/project-phases';
 import * as costItemModel from '../../../database/models/cost-items';
-import * as projectInvoiceService from '../../../modules/project-invoice/service';
+import * as projectInvoiceService from '../service';
 
 const getProjectById = (_: undefined, args: { projectId: string }) =>
   projectModel.findProjectById(args.projectId);
