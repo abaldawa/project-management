@@ -1,5 +1,7 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This component displays the entire project cost breakdown
  */
 
 import {

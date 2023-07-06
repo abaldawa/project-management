@@ -1,5 +1,8 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This component displays the the project name and the
+ * currency used
  */
 
 import React from "react";

@@ -1,5 +1,8 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This component displays the entire individual project phase
+ * cost details
  */
 
 import React from "react";

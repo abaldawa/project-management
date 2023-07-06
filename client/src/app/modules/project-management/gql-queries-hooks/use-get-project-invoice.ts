@@ -1,5 +1,8 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * Graphql react hook to query entire project invoice
+ * from the backend graphQL server
  */
 
 import { useQuery, gql } from "@apollo/client";

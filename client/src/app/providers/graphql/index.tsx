@@ -1,5 +1,7 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * GraphQL provider module
  */
 
 import React from "react";
@@ -16,6 +18,12 @@ const client = new ApolloClient({
   },
 });
 
+/**
+ * @public
+ *
+ * Component which provides graphql client instance to the entire
+ * react children tree
+ */
 const GraphqlProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => <ApolloProvider client={client}>{children}</ApolloProvider>;

@@ -1,5 +1,9 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * Container component which displays the entire project
+ * invoice details and breakdown of its individual phases
+ * cost description
  */
 
 import React from "react";
@@ -22,10 +26,18 @@ const ProjectInvoice: React.FC<ProjectInvoiceProps> = ({ projectId }) => {
   } = useGetProjectInvoice(projectId);
 
   if (loading) {
+    /**
+     * Ideally we show the loading in the loader
+     * component but for the exercise handling it inline
+     */
     return <h3>Loading project invoice...</h3>;
   }
 
   if (error) {
+    /**
+     * Ideally we show the error details in the popup but
+     * for the exercise handling it inline
+     */
     return <h3>Oops! failed to fetch project invoice.</h3>;
   }
 

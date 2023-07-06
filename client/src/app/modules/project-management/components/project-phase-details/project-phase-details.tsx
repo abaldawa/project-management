@@ -1,5 +1,8 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * This component displays the entire project phase price
+ * breakdown along with project phase name
  */
 
 import { useState } from "react";
