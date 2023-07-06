@@ -1,5 +1,7 @@
 /**
  * @author Abhijit Baldawa
+ *
+ * Provides layout for the entire UI
  */
 
 import { Box, styled } from "@mui/material";
