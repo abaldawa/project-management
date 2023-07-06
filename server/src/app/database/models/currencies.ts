@@ -27,6 +27,4 @@ const mockCurrencies: Currency[] = [
 const findCurrencyById = (currencyId: string) =>
   mockCurrencies.find((currency) => currency.id === currencyId);
 
-const getAllCurrencies = () => mockCurrencies;
-
-export { Currency, findCurrencyById, getAllCurrencies };
+export { Currency, findCurrencyById };

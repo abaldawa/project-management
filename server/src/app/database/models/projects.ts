@@ -28,6 +28,4 @@ const mockProjects: Project[] = [
 const findProjectById = (projectId: string) =>
   mockProjects.find((project) => project.id === projectId);
 
-const getAllProjects = () => mockProjects;
-
-export { Project, getAllProjects, findProjectById };
+export { Project, findProjectById };
