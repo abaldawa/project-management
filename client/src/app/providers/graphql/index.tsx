@@ -2,10 +2,6 @@
  * @author Abhijit Baldawa
  */
 
-/**
- * @author Abhijit Baldawa
- */
-
 import React from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { PROJECT_MANAGEMENT_SERVICE_GRAPHQL_URL } from "../../shared/constants/backend-services-url";
