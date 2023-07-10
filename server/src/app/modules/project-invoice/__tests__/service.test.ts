@@ -27,7 +27,7 @@ const mockedCostItems: costItemModel.CostItem[] = [
     projectPhaseId: 'mockPhaseId1',
   },
   {
-    id: 'mockCostItemId3',
+    id: 'mockCostItemId2',
     description: `mock description3`,
     taxRateInPercent: 0,
     billedBy: {
