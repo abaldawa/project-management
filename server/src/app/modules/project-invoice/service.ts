@@ -102,7 +102,11 @@ const getProjectSubtotalPrice = (
 
   const totalPhasesCost = projectPhases.reduce(
     (totalCost, projectPhase) =>
-      totalCost + getProjectPhaseSubtotalPrice(projectPhase),
+      totalCost +
+      getProjectPhaseSubtotalPrice({
+        id: projectPhase.id,
+        discountOrFee: projectPhase.discountOrFee,
+      }),
     0
   );
 
