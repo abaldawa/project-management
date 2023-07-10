@@ -6,12 +6,16 @@
 
 import { Box, styled } from "@mui/material";
 
-const PageContainer = styled(Box)(() => ({
+const PageContainer = styled(Box)(({ theme }) => ({
   height: "100vh",
   display: "flex",
-  padding: "1rem",
+  padding: "0.5rem",
   justifyContent: "center",
   alignItems: "center",
+
+  [theme.breakpoints.up("sm")]: {
+    padding: "1rem",
+  },
 }));
 
 PageContainer.defaultProps = {

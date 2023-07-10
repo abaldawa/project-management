@@ -5,7 +5,7 @@
 import { Box, Paper, styled } from "@mui/material";
 
 const Container = styled(Paper)(() => ({
-  width: "70cqw",
+  width: "100%",
   maxWidth: "800px",
   display: "flex",
   flexDirection: "column",
@@ -28,10 +28,14 @@ const PhasesWrapper = styled(Box)(() => ({
   overflow: "scroll",
 }));
 
-const ProjectPriceDetailsWrapper = styled(Box)(() => ({
-  width: "50%",
-  alignSelf: "flex-end",
+const ProjectPriceDetailsWrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
   marginTop: "1rem",
+
+  [theme.breakpoints.up("sm")]: {
+    width: "50%",
+    alignSelf: "flex-end",
+  },
 }));
 
 ProjectPriceDetailsWrapper.defaultProps = {
