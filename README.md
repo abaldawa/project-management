@@ -34,7 +34,7 @@ The project/phase/cost items details on the backend graphql server is mocked (mi
 9. Go to `http://localhost:3000` to see the UI
 
 ### Unit tests
-17 Unit tests are added on the backend that tests all the core logic which performs tax/total/subtotal calculations on phase/project etc.
+17 Unit tests are added on the backend (under `__tests__` folder) that tests all the core logic which performs tax/total/subtotal calculations on phase/project etc.
 To run the unit tests do below:
 1. Go to `project-management`
 2. `cd server`
