@@ -2,7 +2,7 @@
  * @author Abhijit Baldawa
  */
 
-interface Currency {
+interface CurrencyModel {
   /**
    * Database id of the currency
    */
@@ -33,7 +33,7 @@ interface Currency {
 /**
  * Dummy mock table data for this model
  */
-const mockCurrencies: Currency[] = [
+const mockCurrencies: CurrencyModel[] = [
   {
     id: 'f1e9ae8d-9946-45ad-9ead-4164940c2392',
     name: 'Euro',
@@ -48,7 +48,7 @@ const mockCurrencies: Currency[] = [
   },
 ];
 
-const findCurrencyById = (currencyId: string) =>
+const findCurrencyById = (currencyId: CurrencyModel['id']) =>
   mockCurrencies.find((currency) => currency.id === currencyId);
 
-export { Currency, findCurrencyById };
+export { CurrencyModel, findCurrencyById };

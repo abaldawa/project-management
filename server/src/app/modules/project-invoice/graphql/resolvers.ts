@@ -4,53 +4,79 @@
  * This module contains graphql-resolvers for `project-invoice` module
  */
 
+import { GraphQLError } from 'graphql';
 import * as projectModel from '../../../database/models/projects';
 import * as currencyModel from '../../../database/models/currencies';
 import * as projectPhaseModel from '../../../database/models/project-phases';
 import * as costItemModel from '../../../database/models/cost-items';
 import * as projectInvoiceService from '../service';
+import { Resolvers } from '../../../graphql/generated/resolvers-types';
 
-const getProjectById = (_: undefined, args: { projectId: string }) =>
-  projectModel.findProjectById(args.projectId);
+type ResolverObj = Required<Resolvers>;
 
-const getProjectCurrency = (project: projectModel.Project) =>
-  currencyModel.findCurrencyById(project.currencyId);
+const getProjectById: NonNullable<ResolverObj['Query']['projectInvoice']> = (
+  _,
+  args
+) => projectModel.findProjectById(args.projectId) || null;
 
-const getProjectSubtotalPrice = (project: projectModel.Project) =>
+const getProjectCurrency: NonNullable<
+  ResolverObj['ProjectInvoice']['currency']
+> = (project) => {
+  const projectCurrency = currencyModel.findCurrencyById(project.currencyId);
+
+  if (!projectCurrency) {
+    throw new GraphQLError(
+      `currencyId = '${project.currencyId}' not found in DB`
+    );
+  }
+
+  return projectCurrency;
+};
+
+const getProjectSubtotalPrice: NonNullable<
+  ResolverObj['ProjectInvoice']['subtotalPrice']
+> = (project) =>
   projectInvoiceService.getProjectSubtotalPrice({
     id: project.id,
     discountOrFee: project.discountOrFee,
   });
 
-const getProjectTotalPrice = (project: projectModel.Project) =>
+const getProjectTotalPrice: NonNullable<
+  ResolverObj['ProjectInvoice']['totalPrice']
+> = (project) =>
   projectInvoiceService.getProjectTotalPrice({
     id: project.id,
     discountOrFee: project.discountOrFee,
   });
 
-const getProjectTax = (project: projectModel.Project) =>
-  projectInvoiceService.getProjectTax(project.id);
+const getProjectTax: NonNullable<ResolverObj['ProjectInvoice']['totalTax']> = (
+  project
+) => projectInvoiceService.getProjectTax(project.id);
 
-const getProjectPhases = (project: projectModel.Project) =>
-  projectPhaseModel.getProjectPhasesByProjectId(project.id);
+const getProjectPhases: NonNullable<ResolverObj['ProjectInvoice']['phases']> = (
+  project
+) => projectPhaseModel.getProjectPhasesByProjectId(project.id);
 
-const getProjectPhaseSubtotalPrice = (
-  projectPhase: projectPhaseModel.ProjectPhase
-) =>
+const getProjectPhaseSubtotalPrice: NonNullable<
+  ResolverObj['ProjectPhase']['subtotalPrice']
+> = (projectPhase) =>
   projectInvoiceService.getProjectPhaseSubtotalPrice({
     id: projectPhase.id,
     discountOrFee: projectPhase.discountOrFee,
   });
 
-const getProjectPhaseSubtotalTax = (
-  projectPhase: projectPhaseModel.ProjectPhase
-) => projectInvoiceService.getProjectPhaseSubtotalTax(projectPhase.id);
+const getProjectPhaseSubtotalTax: NonNullable<
+  ResolverObj['ProjectPhase']['subtotalTax']
+> = (projectPhase) =>
+  projectInvoiceService.getProjectPhaseSubtotalTax(projectPhase.id);
 
-const getProjectPhaseCostItems = (
-  projectPhase: projectPhaseModel.ProjectPhase
-) => costItemModel.getCostItemsForPhase(projectPhase.id);
+const getProjectPhaseCostItems: NonNullable<
+  ResolverObj['ProjectPhase']['costItems']
+> = (projectPhase) => costItemModel.getCostItemsForPhase(projectPhase.id);
 
-const getTotalCostOfCostItem = (costItem: costItemModel.CostItem) =>
+const getTotalCostOfCostItem: NonNullable<
+  ResolverObj['CostItem']['totalCost']
+> = (costItem) =>
   projectInvoiceService.getTotalCostOfCostItem(costItem.billedBy);
 
 export {

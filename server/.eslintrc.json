@@ -36,7 +36,8 @@
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
     "no-case-declarations": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-use-before-define": "warn"
   },
   "ignorePatterns": ["node_modules", "build", "test", "jest.**"],
   "settings": {

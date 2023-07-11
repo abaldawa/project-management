@@ -2,9 +2,13 @@
  * @author Abhijit Baldawa
  */
 
-import type { Currency } from './currencies';
+import type { CurrencyModel } from './currencies';
 
-interface Project {
+type DiscountOrFees =
+  | { type: 'DISCOUNT'; discount: number }
+  | { type: 'FEES'; fees: number };
+
+interface ProjectModel {
   /**
    * Database id of the project
    */
@@ -18,20 +22,18 @@ interface Project {
   /**
    * Any discount of extra fee for the entire project
    */
-  discountOrFee?:
-    | { type: 'DISCOUNT'; discount: number }
-    | { type: 'FEES'; fees: number };
+  discountOrFee?: DiscountOrFees;
 
   /**
    * Points to the currency this project uses
    */
-  currencyId: Currency['id'];
+  currencyId: CurrencyModel['id'];
 }
 
 /**
  * Dummy mock relational table data for this model
  */
-const mockProjects: Project[] = [
+const mockProjects: ProjectModel[] = [
   {
     id: '7225222f-faa2-48c9-bdba-e17fcf21a05b',
     name: 'Software product',
@@ -46,4 +48,4 @@ const mockProjects: Project[] = [
 const findProjectById = (projectId: string) =>
   mockProjects.find((project) => project.id === projectId);
 
-export { Project, findProjectById };
+export { DiscountOrFees, ProjectModel, findProjectById };

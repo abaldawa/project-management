@@ -19,7 +19,7 @@ import * as projectModel from '../../database/models/projects';
  * @param billedBy - billing cost information for a cost item
  */
 const getTotalCostOfCostItem = (
-  billedBy: costItemModel.CostItem['billedBy']
+  billedBy: costItemModel.CostItemModel['billedBy']
 ) => {
   if (billedBy.type === 'HOUR') {
     return billedBy.totalHours * billedBy.costPerHour;
@@ -38,7 +38,10 @@ const getTotalCostOfCostItem = (
  *                       needs to be calculated
  */
 const getProjectPhaseSubtotalPrice = (
-  projectPhase: Pick<projectPhaseModel.ProjectPhase, 'id' | 'discountOrFee'>
+  projectPhase: Pick<
+    projectPhaseModel.ProjectPhaseModel,
+    'id' | 'discountOrFee'
+  >
 ) => {
   const totalItemsCost = costItemModel
     .getCostItemsForPhase(projectPhase.id)
@@ -70,7 +73,7 @@ const getProjectPhaseSubtotalPrice = (
  *                         needs to be calculated
  */
 const getProjectPhaseSubtotalTax = (
-  projectPhaseId: projectPhaseModel.ProjectPhase['id']
+  projectPhaseId: projectPhaseModel.ProjectPhaseModel['id']
 ) =>
   costItemModel
     .getCostItemsForPhase(projectPhaseId)
@@ -94,7 +97,7 @@ const getProjectPhaseSubtotalTax = (
  *                  to be calculated
  */
 const getProjectSubtotalPrice = (
-  project: Pick<projectModel.Project, 'id' | 'discountOrFee'>
+  project: Pick<projectModel.ProjectModel, 'id' | 'discountOrFee'>
 ) => {
   const projectPhases = projectPhaseModel.getProjectPhasesByProjectId(
     project.id
@@ -131,7 +134,7 @@ const getProjectSubtotalPrice = (
  * @param projectId - id of the project for which total tax needs
  *                    to be calculated
  */
-const getProjectTax = (projectId: projectModel.Project['id']) => {
+const getProjectTax = (projectId: projectModel.ProjectModel['id']) => {
   const projectPhases =
     projectPhaseModel.getProjectPhasesByProjectId(projectId);
 
@@ -158,7 +161,7 @@ const getProjectTax = (projectId: projectModel.Project['id']) => {
  * @param project - project for which the total prices needs to be calculated
  */
 const getProjectTotalPrice = (
-  project: Pick<projectModel.Project, 'id' | 'discountOrFee'>
+  project: Pick<projectModel.ProjectModel, 'id' | 'discountOrFee'>
 ) => getProjectSubtotalPrice(project) + getProjectTax(project.id);
 
 export {

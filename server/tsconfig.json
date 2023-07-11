@@ -19,5 +19,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules", "build", "test"]
+  "exclude": [
+    "node_modules",
+    "build",
+    "test",
+    "src/**/*.test.ts",
+    "src/codegen"
+  ]
 }
