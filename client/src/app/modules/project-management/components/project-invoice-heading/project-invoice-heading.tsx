@@ -7,10 +7,11 @@
 
 import React from "react";
 import * as S from "./project-invoice-heading.styles";
+import { ProjectInvoice } from "../../gql-queries-hooks";
 
 interface ProjectInvoiceHeadingProps {
-  projectName: string;
-  projectCurrency: string;
+  projectName: ProjectInvoice["name"];
+  projectCurrency: ProjectInvoice["currency"]["isoCode"];
 }
 
 const ProjectInvoiceHeading: React.FC<ProjectInvoiceHeadingProps> = (props) => {
