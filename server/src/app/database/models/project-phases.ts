@@ -2,9 +2,9 @@
  * @author Abhijit Baldawa
  */
 
-import type { Project } from './projects';
+import type { ProjectModel, DiscountOrFees } from './projects';
 
-interface ProjectPhase {
+interface ProjectPhaseModel {
   /**
    * Database id of the project phase
    */
@@ -18,20 +18,18 @@ interface ProjectPhase {
   /**
    * Any discount or extra fee for a particular phase
    */
-  discountOrFee?:
-    | { type: 'DISCOUNT'; discount: number }
-    | { type: 'FEES'; fees: number };
+  discountOrFee?: DiscountOrFees;
 
   /**
    * Project to which this project phase belongs
    */
-  projectId: Project['id'];
+  projectId: ProjectModel['id'];
 }
 
 /**
  * Dummy mock relational table data for this model
  */
-const mockProjectPhases: ProjectPhase[] = [
+const mockProjectPhases: ProjectPhaseModel[] = [
   {
     id: 'c2a1ca0e-9eaa-4c57-a977-9f3676980ea0',
     name: 'Development',
@@ -61,9 +59,11 @@ const mockProjectPhases: ProjectPhase[] = [
   },
 ];
 
-const getProjectPhasesByProjectId = (projectId: ProjectPhase['projectId']) =>
+const getProjectPhasesByProjectId = (
+  projectId: ProjectPhaseModel['projectId']
+) =>
   mockProjectPhases.filter(
     (projectPhase) => projectPhase.projectId === projectId
   );
 
-export { ProjectPhase, getProjectPhasesByProjectId };
+export { ProjectPhaseModel, getProjectPhasesByProjectId };

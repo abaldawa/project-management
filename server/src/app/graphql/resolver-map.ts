@@ -2,11 +2,10 @@
  * @author Abhijit Baldawa
  */
 
-import * as projectModel from '../database/models/projects';
-import * as costItemModel from '../database/models/cost-items';
 import * as projectInvoiceResolvers from '../modules/project-invoice/graphql/resolvers';
+import { Resolvers } from './generated/resolvers-types';
 
-const resolverMap = {
+const resolverMap: Resolvers = {
   Query: {
     projectInvoice: projectInvoiceResolvers.getProjectById,
   },
@@ -30,7 +29,7 @@ const resolverMap = {
   },
 
   DiscountOrFee: {
-    __resolveType: (discountOrFee: projectModel.Project['discountOrFee']) => {
+    __resolveType: (discountOrFee) => {
       if (discountOrFee?.type === 'DISCOUNT') {
         return 'Discount';
       }
@@ -43,7 +42,7 @@ const resolverMap = {
   },
 
   BilledBy: {
-    __resolveType: (billedBy: costItemModel.CostItem['billedBy']) => {
+    __resolveType: (billedBy) => {
       if (billedBy.type === 'HOUR') {
         return 'Hour';
       }

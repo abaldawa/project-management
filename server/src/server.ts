@@ -7,12 +7,12 @@
 import http from 'node:http';
 import path from 'node:path';
 import express from 'express';
-import { ApolloServer } from '@apollo/server';
+import { ApolloServer, BaseContext } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { readFileSync } from 'node:fs';
 import { logger } from './app/logger';
 import { getPort } from './app/config/env';
-import { graphqlSchema } from './app/graphql/schema';
 import { resolverMap } from './app/graphql/resolver-map';
 
 const SERVICE_ROOT_PATH = '/project-management-service';
@@ -24,12 +24,23 @@ const SERVICE_ROOT_PATH = '/project-management-service';
  */
 const start = async (): Promise<void> => {
   try {
+    const graphqlSchemaPath = path.join(
+      __dirname,
+      '..',
+      'src',
+      'app',
+      'graphql',
+      'schema.graphql'
+    );
+    const graphqlSchema = readFileSync(graphqlSchemaPath, {
+      encoding: 'utf-8',
+    });
     const PORT = getPort();
     const app = express();
     const httpServer = http.createServer(app);
 
     // 1. Initialize GraphQL server
-    const server = new ApolloServer({
+    const server = new ApolloServer<BaseContext>({
       typeDefs: graphqlSchema,
       resolvers: resolverMap,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -52,9 +63,11 @@ const start = async (): Promise<void> => {
     });
 
     logger.info(`Server is listening on port ${PORT}`);
-  } catch (err: unknown) {
+  } catch (error: unknown) {
     logger.error(
-      `Error while starting server. Error: ${(err as Error).stack}. Exiting...`
+      `Error while starting server. Error: ${
+        (error as Error).stack
+      }. Exiting...`
     );
     process.exit(1);
   }
