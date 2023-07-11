@@ -14,7 +14,7 @@ import * as costItemModel from '../../../database/models/cost-items';
 import * as projectPhaseModel from '../../../database/models/project-phases';
 
 // ------ Mocked static data with known calculations ------
-const mockedCostItems: costItemModel.CostItem[] = [
+const mockedCostItems: costItemModel.CostItemModel[] = [
   {
     id: 'mockCostItemId1',
     description: `mock description1`,
@@ -42,8 +42,8 @@ const projectPhaseTotalItemsCost = 150 * 100 + 80 * 8;
 const projectPhaseSubtotalTax = 150 * 100 * (20 / 100);
 
 const getMockedProjectPhase = (
-  discountOrFee?: projectPhaseModel.ProjectPhase['discountOrFee']
-): [projectPhaseModel.ProjectPhase] => [
+  discountOrFee?: projectPhaseModel.ProjectPhaseModel['discountOrFee']
+): [projectPhaseModel.ProjectPhaseModel] => [
   {
     id: 'mock phase id',
     name: 'mock phase name',

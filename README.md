@@ -8,12 +8,15 @@ A fullstack React.js/Node.js/Typescript/GraphQL based project-management app sho
 
 The project/phase/cost items details on the backend graphql server is mocked (mimicking real database and is in-memory for exercise purpose) but all the associated calculation necessary to generate invoice details (ex. totalTax, total project cost, phase subtotal cost, phase tax etc.) are real and are happening on the mocked database data. The mocked database data is all relational mimicking real DB relations as much as possible.
 
+On the backend, graphql resolvers typescript types are generated from graphql schema using @graphql-codegen/cli as per the docs [here](https://www.apollographql.com/docs/apollo-server/workflow/generate-types/) so its 100% typesafe at the code level.
+
 ### Tech Stack
 
 1. **Backend:** Node.js (18.x), Typescript, express.js, apollo-server, graphql, jest, ts-jest
 2. **Front end:** React.js, Typescript, apollo-client, material-ui
-3. **Testing**: Backend unit tests are done using Jest and ts-jest
+3. **Testing:** Backend unit tests are done using Jest and ts-jest
 4. Docker
+5. **Backend graphql types codegen:** @graphql-codegen/cli, @graphql-codegen/typescript, @graphql-codegen/typescript-resolvers
 
 ### Pre-requisites
 
@@ -29,15 +32,20 @@ The project/phase/cost items details on the backend graphql server is mocked (mi
 ### How to run manually
 
 1. Install Node.js 18.16.1
-1. `git clone https://github.com/abaldawa/project-management.git`
+2. `git clone https://github.com/abaldawa/project-management.git`
+3. `cd project-management/server`
+4. execute `npm i`
+5. execute `npm start` (This will start the backend GraphQL server)
+6. `cd ..` (or go back to root `project-management` folder)
+7. `cd client`
+8. execute `npm i`
+9. execute `npm start` (This will start the frontend react dev server)
+10. Go to `http://localhost:3000` to see the UI
+
+### Server GraphQL resolver types codegen
+
 1. `cd project-management/server`
-1. execute `npm i`
-1. execute `npm start` (This will start the backend GraphQL server)
-1. `cd ..` (or go back to root `project-management` folder)
-1. `cd client`
-1. execute `npm i`
-1. execute `npm start` (This will start the frontend react dev server)
-1. Go to `http://localhost:3000` to see the UI
+2. `npm run generate-graphql-types` - This will generate graphql resolvers typescript types based on the graphql schema
 
 ### Unit tests
 
@@ -56,9 +64,8 @@ GraphQL api (and GraphQL API query UI) can be accessed on `/project-management-s
 
 1. To share reusable typescript types and javascript code on both frontend and backend a monorepo like [NX](https://nx.dev/)
    is a good choice.
-2. Typescript types based on GraphQL schema can be generated using graphql cli code generator as highlighted in official
-   apollo docs [here](https://www.apollographql.com/docs/react/development-testing/static-typing/) and [here](https://www.apollographql.com/docs/apollo-server/workflow/generate-types/).
-   This helps to avoid typing graphql schema manually in typescript.
+2. On the frontend, typescript types based on GraphQL query schema can be generated using graphql cli code generator as highlighted in official
+   apollo docs [here](https://www.apollographql.com/docs/react/development-testing/static-typing/). This helps to avoid manually typing output of a graphql query response in typescript.
 3. Graphql [n+1 problem](https://shopify.engineering/solving-the-n-1-problem-for-graphql-through-batching) can be solved using [data-loader](https://github.com/graphql/dataloader). Basically a batching solution.
 4. Unit/integration/E2E tests on the frontend using jest, React testing library, Mock Service worker, cypress etc.
 5. The frontend is created using CRA. As CRA is sunsetted officially by react team, the official recommended ways to create react project, according to react official docs, are Next.js and Remix. Create Vite App is also a very popular solution to create a client only SPA with react.js but is not highlighted enough on react.js new official docs.

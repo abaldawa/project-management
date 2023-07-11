@@ -2,9 +2,21 @@
  * @author Abhijit Baldawa
  */
 
-import { ProjectPhase } from './project-phases';
+import { ProjectPhaseModel } from './project-phases';
 
-interface CostItem {
+type BilledByInfo =
+  | {
+      type: 'HOUR';
+      totalHours: number;
+      costPerHour: number;
+    }
+  | {
+      type: 'UNITS';
+      totalUnits: number;
+      costPerUnit: number;
+    };
+
+interface CostItemModel {
   /**
    * Database id of the cost item
    */
@@ -24,28 +36,18 @@ interface CostItem {
    * Billing information which can be used to calculate
    * the total cost of the cost item
    */
-  billedBy:
-    | {
-        type: 'HOUR';
-        totalHours: number;
-        costPerHour: number;
-      }
-    | {
-        type: 'UNITS';
-        totalUnits: number;
-        costPerUnit: number;
-      };
+  billedBy: BilledByInfo;
 
   /**
    * Phase to which this cost item belongs
    */
-  projectPhaseId: ProjectPhase['id'];
+  projectPhaseId: ProjectPhaseModel['id'];
 }
 
 /**
  * Dummy mock relational table data for this model
  */
-const mockCostItems: CostItem[] = [
+const mockCostItems: CostItemModel[] = [
   {
     id: '2fe034f6-bda0-4715-bf7e-eba99de565ec',
     description: `Senior developers work`,
@@ -116,9 +118,11 @@ const mockCostItems: CostItem[] = [
   },
 ];
 
-const getCostItemsForPhase = (projectPhaseId: CostItem['projectPhaseId']) =>
+const getCostItemsForPhase = (
+  projectPhaseId: CostItemModel['projectPhaseId']
+) =>
   mockCostItems.filter(
     (costItem) => costItem.projectPhaseId === projectPhaseId
   );
 
-export { CostItem, getCostItemsForPhase };
+export { BilledByInfo, CostItemModel, getCostItemsForPhase };
