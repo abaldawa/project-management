@@ -1,3 +1,11 @@
+/**
+ * @author Abhijit Baldawa
+ *
+ * This modules exposes configuration to be used by graphql-codegen cli
+ * to generate typescript types for graphql-resolvers based on
+ * graphql schema
+ */
+
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
