@@ -42,7 +42,7 @@ Graphql resolvers typescript types on **backend** and graphql query types on **f
 9. execute `npm start` (This will start the frontend react dev server)
 10. Go to `http://localhost:3000` to see the UI
 
-### GraphQL types codegen ob backend and frontend
+### GraphQL types codegen on backend and frontend
 
 For backend:
 
