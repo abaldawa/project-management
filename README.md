@@ -8,7 +8,7 @@ A fullstack React.js/Node.js/Typescript/GraphQL based project-management app sho
 
 The project/phase/cost items details on the backend graphql server is mocked (mimicking real database and is in-memory for exercise purpose) but all the associated calculation necessary to generate invoice details (ex. totalTax, total project cost, phase subtotal cost, phase tax etc.) are real and are happening on the mocked database data. The mocked database data is all relational mimicking real DB relations as much as possible.
 
-Graphql resolvers typescript types on **backend** and graphql query types on **frontend** are generated from graphql schema using @graphql-codegen/cli as per the docs [here](https://www.apollographql.com/docs/apollo-server/workflow/generate-types/) and [here](https://www.apollographql.com/docs/react/development-testing/static-typing/), so, its 100% typesafe at the code level.
+Graphql resolvers typescript types on **backend** and graphql query types on **frontend** are generated (and committed in this github repo) from graphql schema using @graphql-codegen/cli as per the docs [here](https://www.apollographql.com/docs/apollo-server/workflow/generate-types/) and [here](https://www.apollographql.com/docs/react/development-testing/static-typing/), so, its 100% typesafe at the code level.
 
 ### Tech Stack
 
@@ -43,6 +43,7 @@ Graphql resolvers typescript types on **backend** and graphql query types on **f
 10. Go to `http://localhost:3000` to see the UI
 
 ### GraphQL types codegen on backend and frontend
+The graphql types on both backend and frontend are already generated using graphql-codegen/cli and committed with the repo. If you change the graphql schema/query then you can auto generate typescript types for graphql on backend/frontend with below available npm script.
 
 For backend:
 
