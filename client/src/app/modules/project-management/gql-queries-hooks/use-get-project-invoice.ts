@@ -5,61 +5,37 @@
  * from the backend graphQL server
  */
 
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { gql } from "../../../shared/graphql/generated";
+import { GetProjectInvoiceQuery } from "../../../shared/graphql/generated/graphql";
 
-type DiscountOrFee =
-  | {
-      type: "DISCOUNT";
-      discount: number;
-    }
-  | {
-      type: "FEES";
-      fees: number;
-    };
+/**
+ * Graphql query response
+ */
+type ProjectInvoice = NonNullable<GetProjectInvoiceQuery["projectInvoice"]>;
 
-type BilledBy =
-  | {
-      type: "HOUR";
-      totalHours: number;
-      costPerHour: number;
-    }
-  | {
-      type: "UNITS";
-      totalUnits: number;
-      costPerUnit: number;
-    };
+/**
+ * Discriminated Union type of `DiscountOrFee` structure in both
+ * the project and phase
+ */
+type DiscountOrFee = NonNullable<ProjectInvoice["discountOrFee"]>;
 
-export interface ProjectInvoice {
-  name: string;
-  subtotalPrice: number;
-  totalPrice: number;
-  totalTax: number;
-  currency: {
-    isoCode: string;
-  };
-  discountOrFee?: DiscountOrFee;
+/**
+ * @public
+ *
+ * Checks whether the provided object conforms to
+ * discountOrFee discriminated union type
+ *
+ * @param discountOrFee
+ * @returns
+ */
+const isDiscountOrFee = (
+  discountOrFee?: DiscountOrFee | null
+): discountOrFee is Required<DiscountOrFee> => {
+  return Boolean(discountOrFee?.__typename);
+};
 
-  phases: Array<{
-    id: string;
-    name: string;
-    subtotalPrice: number;
-    subtotalTax: number;
-    discountOrFee?: DiscountOrFee;
-    costItems: Array<{
-      id: string;
-      description: string;
-      taxRateInPercent: number;
-      totalCost: number;
-      billedBy: BilledBy;
-    }>;
-  }>;
-}
-
-interface ProjectInvoiceGqlResponse {
-  projectInvoice: ProjectInvoice;
-}
-
-const GET_PROJECT_INVOICE_GQL_QUERY = gql`
+const GET_PROJECT_INVOICE_GQL_QUERY = gql(/* GraphQL */ `
   query GetProjectInvoice($projectId: String!) {
     projectInvoice(projectId: $projectId) {
       name
@@ -118,11 +94,12 @@ const GET_PROJECT_INVOICE_GQL_QUERY = gql`
       }
     }
   }
-`;
+`);
 
 const useGetProjectInvoice = (projectId: string) =>
-  useQuery<ProjectInvoiceGqlResponse>(GET_PROJECT_INVOICE_GQL_QUERY, {
+  useQuery(GET_PROJECT_INVOICE_GQL_QUERY, {
     variables: { projectId },
   });
 
-export { useGetProjectInvoice };
+export type { ProjectInvoice };
+export { useGetProjectInvoice, isDiscountOrFee };

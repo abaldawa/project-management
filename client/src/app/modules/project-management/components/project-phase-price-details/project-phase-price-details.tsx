@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { isDiscountOrFee } from "../../gql-queries-hooks";
 import type { ProjectPhaseDetailsProps } from "../project-phase-details/project-phase-details";
 import * as S from "./project-phase-price-details.styles";
 
@@ -81,7 +82,8 @@ const ProjectPhasePriceDetails: React.FC<ProjectPhasePriceDetailsProps> = (
                 {costItem.description}
               </TableCell>
 
-              {costItem.billedBy.type === "HOUR" ? (
+              {costItem.billedBy.__typename &&
+              costItem.billedBy.__typename === "Hour" ? (
                 <>
                   <TableCell align="right">
                     {costItem.billedBy.totalHours}
@@ -94,7 +96,8 @@ const ProjectPhasePriceDetails: React.FC<ProjectPhasePriceDetailsProps> = (
                 <TableCell colSpan={2} sx={{ borderRight: "1px solid" }} />
               )}
 
-              {costItem.billedBy.type === "UNITS" ? (
+              {costItem.billedBy.__typename &&
+              costItem.billedBy.__typename === "Unit" ? (
                 <>
                   <TableCell align="right">
                     {costItem.billedBy.totalUnits}
@@ -112,14 +115,14 @@ const ProjectPhasePriceDetails: React.FC<ProjectPhasePriceDetailsProps> = (
             </TableRow>
           ))}
 
-          {discountOrFee && (
+          {isDiscountOrFee(discountOrFee) && (
             <TableRow>
               <TableCell rowSpan={2} colSpan={4} />
               <TableCell sx={{ fontWeight: "bold", borderRight: "1px solid" }}>
                 {discountOrFee.type}
               </TableCell>
               <TableCell align="right">
-                {discountOrFee.type === "DISCOUNT" ? (
+                {discountOrFee.__typename === "Discount" ? (
                   <>-{discountOrFee.discount}</>
                 ) : (
                   <>+{discountOrFee.fees}</>

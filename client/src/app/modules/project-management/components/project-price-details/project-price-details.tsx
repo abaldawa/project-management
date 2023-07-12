@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { ProjectInvoice } from "../../gql-queries-hooks";
+import { ProjectInvoice, isDiscountOrFee } from "../../gql-queries-hooks";
 
 type ProjectPriceDetailsProps = Pick<
   ProjectInvoice,
@@ -35,11 +35,11 @@ const ProjectPriceDetails: React.FC<ProjectPriceDetailsProps> = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {discountOrFee && (
+          {isDiscountOrFee(discountOrFee) && (
             <TableRow>
               <TableCell>{discountOrFee.type}</TableCell>
               <TableCell align="right">
-                {discountOrFee.type === "DISCOUNT" ? (
+                {discountOrFee.__typename === "Discount" ? (
                   <>-{discountOrFee.discount}</>
                 ) : (
                   <>+{discountOrFee.fees}</>
